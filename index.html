@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <title>Denu</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style type="text/css">
+        body {
+          background-color: yellow;
+        }
+        .tabs-menu{
+          background-color: yellow;
+          width: 900px;
+          height: 200px;
+        }
+        .tabs {
+          position: absolute;
+        }
+        .tabs div {
+          float: left;
+          width: 300px;
+          height: 200px;
+          border-radius: 50px 50px 0px 0px;
+        }
+        .substrate{
+          position: absolute;
+          width: 900px;
+          height: 200px;
+        }
+        .substrate-layer1, .substrate-layer2 {
+          width: 900px;
+          height: 100px;
+        }
+        .substrate-layer2 {
+          background-color: red;
+        }
+        #tab1,#stab1{
+          background-color: red;
+        }
+        #tab2,#stab2{
+          background-color: blue;
+        }
+        #tab3,#stab3{
+          background-color: green;
+        }
+        .tab-active {
+          background-color: white;
+        }
+        .left {
+          border-radius: 50px 50px 50px 0px;
+        }
+        #tab1 {
+          border-radius: 50px 50px 50px 0px; 
+        }
+        #tab2 {
+          border-radius: 50px 50px 0px 50px;
+        }
+        #tab3 {
+
+        }
+        .tabs-arrea div {
+          display: none;
+          width: 1000px;
+          height: 600px;
+          position: absolute;
+          background-color: gray;
+          color: white;
+          font-weight: bold;
+          border-radius: 0px 50px 0px 0px;
+        }
+        #stab1 {
+          display: block;
+        }
+        .tempory-tab, .last-tab {
+          width: 200px;
+          height:200px;
+        }
+        .tempory-tab {
+          position: relative;
+          margin: 0 0 0 900px;
+          background-color: green;
+        }
+        .last-tab {
+          background-color: yellow;
+          border-radius: 0px 0px 0px 50px;
+        }
+
+    </style>
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        $('.select-tab').on('click',function(){
+            var last_tab = 'tab3'
+            var id = $(this).attr('id');
+            var color = $(this).css('backgroundColor');
+
+            $('.substrate-layer2').css('backgroundColor',color);
+            $('.tabs-arrea div').hide();
+            $('#s'+id).show();
+            correct_border( id, last_tab );
+        });
+        function correct_border(id,last_tab){
+          var current_tab = id.match(/tab(\d+)/);
+          var last_tab = last_tab.match(/tab(\d+)/);
+          var current_tab = parseInt(current_tab[1], 10);
+          var last_tab = parseInt(last_tab[1], 10);
+
+          $('.select-tab').css('border-radius','50px 50px 0px 0px');
+          if( id == 'tab1' ){
+            $('#tab2').css('border-radius','50px 50px 0px 50px');
+          } else if ( id == last_tab ){
+            $('#tab'-(last_tab-1)).css('border-radius','50px 50px 50px 0px');
+          } else {
+            $('#tab'+(current_tab+1)).css('border-radius','50px 50px 0px 50px');
+            $('#tab'+(current_tab-1)).css('border-radius','50px 50px 50px 0px');
+          }
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <div class='tabs-menu'>
+      <div class='substrate'>
+        <div class='substrate-layer1'></div>
+        <div class='substrate-layer2'></div>
+      </div>
+      <div class='tabs'>
+        <div class='select-tab' id='tab1'></div>
+        <div class='select-tab' id='tab2'></div>
+        <div class='select-tab' id='tab3'></div>
+      </div>
+      <div>
+        <div class='tempory-tab'><div class='last-tab'></div></div>
+      </div>
+    <div class='tabs-arrea'>
+      <div id='stab1'>1110</div>
+      <div id='stab2'>2222</div>
+      <div id='stab3'>3333</div>
+    </div>
+  </body>
+</html>
